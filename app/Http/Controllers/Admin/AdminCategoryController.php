@@ -13,18 +13,18 @@ class AdminCategoryController extends Controller
         return view('admin.category.index');
     }
 
-    public function create(Request $request)
+    public function create()
     {
-  
+
         return view('admin.category.form');
     }
 
     public function store(Request $request)
     {
-        Category::create([
-            'title' => $request->input('nameCategory'),
-            'parent_id' => $request->input('childCategory')
-        ]);
+        $category = new Category;
+        $category->title = $request->nameCategory;
+        $category->parent_id = $request->childCategory;
+        $category->save();
 
         return redirect()->back();
     }
