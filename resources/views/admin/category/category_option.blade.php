@@ -1,5 +1,4 @@
 @foreach ($categories as $category)
-
     <option value="{{$category->id}}" class="form-control">{{$category->title}}</option>
         @if(isset($category->children))
       @foreach ($category->children as $categoryChildren)
@@ -11,4 +10,3 @@
      @endforeach
         @endif
 @endforeach
-

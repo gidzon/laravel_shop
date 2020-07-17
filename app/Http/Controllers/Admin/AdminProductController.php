@@ -16,7 +16,7 @@ class AdminProductController extends Controller
     }
     public function create(Request $request)
     {
-        return view('admin.create');
+        return view('admin.product.form');
     }
 
     public function store(Request $request)
@@ -27,7 +27,7 @@ class AdminProductController extends Controller
             'desc' => 'required'
         ];
 
-        
+
         $this->validate($request, $roles);
 
         if ($request->hasFile('img')) {
@@ -40,11 +40,11 @@ class AdminProductController extends Controller
                 'img' => $path,
                 'category_id' => $request->input('category'),
             ]);
-            
+
         } else {
             return redirect()->route('product.create');
         }
-        
+
 
         return redirect()->route('product.index');
     }
@@ -85,7 +85,7 @@ class AdminProductController extends Controller
             $warning = 'Вы не выбрали изображение';
             return redirect()->route('product.admin.edit', ['warning' => $warning]);
         }
-        
+
     }
 
     public function destroy(Request $request, Product $product)
