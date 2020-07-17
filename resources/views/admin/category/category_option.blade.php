@@ -1,17 +1,14 @@
-@if(isset($categories))
-    <option value="0">Нет категорий</option>
-    
-@else
 @foreach ($categories as $category)
 
-	
     <option value="{{$category->id}}" class="form-control">{{$category->title}}</option>
-    	@if(!empty($category->children))
+        @if(isset($category->children))
       @foreach ($category->children as $categoryChildren)
-      	
+
         <option value="{{$categoryChildren->id}}" class="form-control">{{$categoryChildren->title}}</option>
+        @if(isset($categoryChildren->children))
         @include('admin.category.category_option', ['categories' => $categoryChildren->children])
-     @endforeach 
-     @endif
+        @endif
+     @endforeach
+        @endif
 @endforeach
-@endif
+
