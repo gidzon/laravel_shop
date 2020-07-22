@@ -23,9 +23,6 @@ class ProductController extends Controller
         return view('product.show')->with('product', $product);
     }
 
-    public function(Request $request)
-    {
-        return view('admin.product.form');
-    }
+
 
 }
