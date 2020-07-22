@@ -26,9 +26,10 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer([
-            'layout.header', 
-            'admin.product.form', 
-            'admin.category.form'
+            'layout.header',
+            'admin.product.form',
+            'admin.category.form',
+            'admin.admin'
         ], NavigationComposer::class);
     }
 }
