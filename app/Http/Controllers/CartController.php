@@ -18,31 +18,26 @@ class CartController extends Controller
         $product = Product::find($productId);
         $productSumm = $product->price * $request->amount;
 
-        // Considers the total amount of all goods
-        if (!$request->session()->has('productSumm')) {
-            session(['productSumm' => $productSumm]);
-            $totalAmount = $productSumm;
-        } else {
-            $summProductOld = $request->session()->get('productSumm');
-            $newProductSumm = $summProductOld + $productSumm;
-            $request->session()->push(['productSumm' => $newProductSumm]);
+        $cart = Cart::where('name_product', $product->name)->first();
 
-            $totalAmount = $newProductSumm;
-        }
-
-        $cartProduct = Cart::where('name_product', $product->name)->get();
-        if (empty($cartProduct)) {
+        if (!isset($cart)) {
             Cart::create([
                 'name_product' => $product->name,
                 'price' => $product->price,
                 'product_summ' => $productSumm,
-                'amount' => $request->amount,
-                'total_amount_summ' => $totalAmount
+                'amount' => $amount,
+                'total_amount_summ' => 1
             ]);
         } else {
-            $cartProduct->total_amount_summ = $totalAmount;
-            $cartProduct->save();
+            $summProductOld = $cart->product_summ;
+
+            $newProductSumm = $summProductOld + $productSumm;
+            $cart->product_summ = $newProductSumm;
+            $amount = $cart->amount + $request->input('amount');
+            $cart->amount = $amount;
+            $cart->save();
         }
+
 
         return redirect()->back();
 
