@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-10">
+            <div class="col-8">
                 <img src="" alt="" class="img-fluid">
                 <p class="text-justify">
                    {{$product->desc}}
@@ -16,6 +16,14 @@
                         <input type="submit" name="submit" class="form-control" value="купить">
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h4>Товаров в корзине</h4>
+                <p>{{$cart}}</p>
             </div>
         </div>
     </div>
