@@ -24,7 +24,7 @@ Route::get('admin/product/show', 'Admin\AdminProductController@show')
 
 
 Route::get('cart', 'CartController@index')->name('cart.index');
-Route::get('cart/add', 'CartController@addProductCart')->name('cart.add.product');
+Route::post('cart/add/{productId}', 'CartController@store')->name('cart.store');
 Route::post('cart/update', 'CartController@update')->name('cart.update');
 Route::get('cart/destroy', 'CartController@destroy')->name('cart.destroy');
 
@@ -33,7 +33,7 @@ Route::get('admin', 'Admin\AdminController@index')->name('admin.index')->middlew
 Route::get('admin/product/create', 'Admin\AdminProductController@create')
 ->name('product.create')->middleware('auth');
 Route::post('admin/product/store', 'Admin\AdminProductController@store')
-->name('admin.product.store');
+->name('product.store');
 Route::get('admin/product/edit', 'Admin\AdminProductController@edit')
 ->name('product.admin.edit')->middleware('auth');
 Route::get('admin/product/destroy', 'Admin\AdminProductController@destroy')
