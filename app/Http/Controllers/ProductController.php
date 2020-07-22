@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Product;
+use App\Model\Cart;
 
 
 class ProductController extends Controller
@@ -19,8 +20,10 @@ class ProductController extends Controller
 
     public function show($productId)
     {
+        $cart = Cart::count();
+
         $product = Product::find($productId);
-        return view('product.show')->with('product', $product);
+        return view('product.show', ['product' => $product, 'cart' => $cart]);
     }
 
 
