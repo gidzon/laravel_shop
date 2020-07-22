@@ -13,10 +13,10 @@ class CartController extends Controller
         return view('cart.index')->with('carts', Cart::get());
     }
 
-    public function addProductCart($amount, $productId)
+    public function store(Request $request,  $productId)
     {
         $product = Product::find($productId);
-        $productSumm = $product->price * $amount;
+        $productSumm = $product->price * $request->amount;
 
         // Considers the total amount of all goods
         if (!$request->session()->has('productSumm')) {
@@ -26,17 +26,17 @@ class CartController extends Controller
             $summProductOld = $request->session()->get('productSumm');
             $newProductSumm = $summProductOld + $productSumm;
             $request->session()->push(['productSumm' => $newProductSumm]);
-            
+
             $totalAmount = $newProductSumm;
         }
-        
+
         $cartProduct = Cart::where('name_product', $product->name)->get();
         if (empty($cartProduct)) {
             Cart::create([
                 'name_product' => $product->name,
                 'price' => $product->price,
                 'product_summ' => $productSumm,
-                'amount' => $amount,
+                'amount' => $request->amount,
                 'total_amount_summ' => $totalAmount
             ]);
         } else {
@@ -44,12 +44,12 @@ class CartController extends Controller
             $cartProduct->save();
         }
 
-        return redirect()->route('product.index');
-        
-        
+        return redirect()->back();
+
+
     }
 
-    
+
 
     public function update(Request $request, Cart $cart)
     {
@@ -59,7 +59,7 @@ class CartController extends Controller
             'product_summ' => $summ,
             'total_amount_summ' => $summ
         ]);
-        
+
         return redirect()->route('cart.index');
     }
 
