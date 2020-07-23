@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomePageController@index');
+Route::get('/', 'HomePageController@index')->name('home.index');
 Route::get('show/{productId}', 'ProductController@show')->name('product.show');
 Route::get('products/{categoryId}', 'ProductController@index')->name('product.index');
 
