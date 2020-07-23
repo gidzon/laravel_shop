@@ -27,4 +27,11 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row ">
+            <div class="col">
+            <a href="{{route('cart.index')}}">корзина</a>
+            </div>
+        </div>
+    </div>
 @endsection
