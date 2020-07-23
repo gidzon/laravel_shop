@@ -25,8 +25,7 @@ class CartController extends Controller
                 'name_product' => $product->name,
                 'price' => $product->price,
                 'product_summ' => $productSumm,
-                'amount' => $amount,
-                'total_amount_summ' => 1
+                'amount' => $request->amount,
             ]);
         } else {
             $summProductOld = $cart->product_summ;

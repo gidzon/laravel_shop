@@ -19,7 +19,6 @@ class CreateCartsTable extends Migration
             $table->integer('price');
             $table->integer('product_summ');
             $table->integer('amount');
-            $table->integer('total_amount_summ');
             $table->timestamps();
         });
     }
