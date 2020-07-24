@@ -25,7 +25,6 @@
         </tr>
         @endforeach
     </table>
-   
         <div class="row float-right">
             <div class="col">
                 <table class="table">
@@ -33,7 +32,7 @@
                         <th>Итого</th>
                     </tr>
                     <tr>
-                        <td scope="col">50000</td>
+                        <td scope="col">{{$totalAmount['product_summ']}}</td>
                     </tr>
                 </table>
             </div>

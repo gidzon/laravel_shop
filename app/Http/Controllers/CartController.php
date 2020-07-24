@@ -10,7 +10,13 @@ class CartController extends Controller
 {
     public function index()
     {
-        return view('cart.index')->with('carts', Cart::get());
+        $productSumm = Cart::pluck('product_summ');
+        $cart = new Cart;
+        $totalAmount = $cart->getTotalAmount($productSumm);
+        return view('cart.index', [
+            'carts' => Cart::get(),
+            'totalAmount' => $totalAmount
+        ]);
     }
 
     public function store(Request $request,  $productId)
