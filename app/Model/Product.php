@@ -12,4 +12,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function feedbacks()
+    {
+        return $this->belongsTo('App\Feedback');
+    }
 }
