@@ -44,7 +44,7 @@ Route::get('admin/category/create', 'Admin\AdminCategoryController@create')
 Route::post('admin/category/store', 'Admin\AdminCategoryController@store')->name('category.store');
 
 
-
+Route::get('feedback/{productId}', 'FeedbackController')->name('feedback');
 
 Auth::routes();
 
