@@ -21,19 +21,22 @@ class AdminProductController extends Controller
 
     public function store(Request $request)
     {
-        $roles = [
-            'name' => 'required',
-            'price' => 'required',
-            'desc' => 'required'
-        ];
+        $request->flash();
+        
+       $roles = [
+           'name' => 'required',
+           'price' => 'required',
+           'desc' => 'required',
+           'img' => 'file|image'
+       ];
 
 
-        $this->validate($request, $roles);
+       $this->validate($request, $roles);
 
         if ($request->hasFile('img')) {
             $path = $request->img->store('img', 'public');
 
-            $product = Product::create([
+            Product::create([
                 'name' => $request->name,
                 'price' => $request->price,
                 'desc' => $request->desc,
@@ -46,7 +49,7 @@ class AdminProductController extends Controller
         }
 
 
-        return redirect()->route('product.index');
+        return redirect()->route('admin.index');
     }
 
     public function show(Product $product)
@@ -82,8 +85,7 @@ class AdminProductController extends Controller
 
             return redirect()->route('product.admin.show')->with('product', $product);
         } else {
-            $warning = 'Вы не выбрали изображение';
-            return redirect()->route('product.admin.edit', ['warning' => $warning]);
+            return redirect()->route('product.admin.edit');
         }
 
     }

@@ -21,6 +21,14 @@ class AdminCategoryController extends Controller
 
     public function store(Request $request)
     {
+        
+        $roles = [
+            'nameCategory' => 'required',
+        ];
+ 
+        
+        $this->validate($request, $roles);
+
         $category = new Category;
         $category->title = $request->nameCategory;
         $category->parent_id = $request->childCategory;
