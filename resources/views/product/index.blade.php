@@ -7,7 +7,7 @@
                 @if(!empty($product))
                 <div class="col-4">
                     <div class="card my-2" style="width: 18rem;">
-                        <img class="card-img-top" src="..." alt="Card image cap">
+                        <img class="card-img-top" src="{{asset('storage/'.$product->img)}}" alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title">{{$product->name}}</h5>
                           <p class="card-text">{{$product->desc}}</p>
