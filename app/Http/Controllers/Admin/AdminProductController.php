@@ -16,7 +16,7 @@ class AdminProductController extends Controller
     }
     public function create(Request $request)
     {
-        return view('admin.product.form');
+        return view('admin.product.create');
     }
 
     public function store(Request $request)
@@ -33,21 +33,15 @@ class AdminProductController extends Controller
 
        $this->validate($request, $roles);
 
-        if ($request->hasFile('img')) {
-            $path = $request->img->store('img', 'public');
+        $path = $request->img->store('img', 'public');
 
-            Product::create([
-                'name' => $request->name,
-                'price' => $request->price,
-                'desc' => $request->desc,
-                'img' => $path,
-                'category_id' => $request->input('category'),
-            ]);
-
-        } else {
-            return redirect()->route('product.create');
-        }
-
+        Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'desc' => $request->desc,
+            'img' => $path,
+            'category_id' => $request->input('category'),
+        ]);
 
         return redirect()->route('admin.index');
     }
@@ -57,12 +51,12 @@ class AdminProductController extends Controller
         return view('admin.product.show')->with('product', $product);
     }
 
-    public function edit($warning = null)
+    public function edit(Product $product)
     {
-        return view('admin.product.edit', ['warning' => $warning]);
+        return view('admin.product.edit', ['product' => $product]);
     }
 
-    public function update(Request $request, Product $product, $imgPath)
+    public function update(Request $request, Product $product)
     {
         $roles = [
             'name' => 'required',
@@ -72,27 +66,27 @@ class AdminProductController extends Controller
 
         $this->validate($request, $roles);
 
-        if ($request->hasFile('img')) {
-            Storage::delete($imgPath);
-            $path = $request->img->store('img', 'public');
+        Storage::disk('public')->delete($product->img);
+        $path = $request->img->store('img', 'public');
 
-            $product = Product::update([
-                'name' => $request->name,
-                'price' => $request->price,
-                'desc' => $request->desc,
-                'img' => $path,
-            ]);
-
-            return redirect()->route('product.admin.show')->with('product', $product);
-        } else {
-            return redirect()->route('product.admin.edit');
-        }
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'desc' => $request->desc,
+            'category_id' => $request->category_id,
+            'img' => $path,
+        ]);
+        return redirect()->route('admin.index');
 
     }
 
-    public function destroy(Request $request, Product $product)
+    public function destroy($id)
     {
+        $product = Product::find($id);
+        
+
+        Storage::disk('public')->delete($product->img);
         $product->delete();
-        return redirect()->route('product.admin.show');
+        return redirect()->route('admin.index');
     }
 }
