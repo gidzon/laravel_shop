@@ -34,15 +34,17 @@ Route::get('admin/product/create', 'Admin\AdminProductController@create')
 ->name('product.create')->middleware('auth');
 Route::post('admin/product/store', 'Admin\AdminProductController@store')
 ->name('product.store');
-Route::get('admin/product/edit', 'Admin\AdminProductController@edit')
-->name('product.admin.edit')->middleware('auth');
-Route::get('admin/product/destroy', 'Admin\AdminProductController@destroy')
-->name('product.admin.destroy')->middleware('auth');
+Route::get('admin/product/edit/{product}', 'Admin\AdminProductController@edit')
+->name('product.edit');
+Route::post('admin/product/update{product}', 'Admin\AdminProductController@update')->name('product.update');
+Route::get('admin/product/destroy/{product}', 'Admin\AdminProductController@destroy')->name('product.destroy');
 
 Route::get('admin/category/create', 'Admin\AdminCategoryController@create')
 ->name('category.create')->middleware('auth');
 Route::post('admin/category/store', 'Admin\AdminCategoryController@store')->name('category.store');
-
+Route::get('admin/category/edit/{categoryId}', 'Admin\AdminCategoryController@edit')->name('category.edit');
+Route::post('admin/category/update/{categoryId}', 'Admin\AdminCategoryController@update')->name('category.update');
+Route::get('admin/category/destroy/{categoryId}', 'Admin\AdminCategoryController@destroy')->name('category.destroy');
 
 Route::get('feedback/{productId}', 'FeedbackController')->name('feedback');
 
